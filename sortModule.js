@@ -8,10 +8,6 @@ function sort(array) {
     return array;
 }
 
-console.log(sort([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]));
-
-
-
 function merge(array1 , array2) {
     let arr = [], indArr1 = 0, indArr2 = 0;
 
@@ -29,3 +25,6 @@ function merge(array1 , array2) {
 
     return arr;
 }
+
+
+export { sort };
