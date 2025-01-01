@@ -1,17 +1,16 @@
 function sort(array) {
     if(array.length > 1) {
         let middleIndex = Math.floor(array.length / 2);
-        let left = array.slice(0, middleIndex  );
-        let right = array.slice( middleIndex  );
-        console.log(left);
-        console.log(right);
-        sort(left);
-        sort(right);
+        let left = sort(array.slice(0, middleIndex  ));
+        let right = sort(array.slice( middleIndex  ));
+        array = merge(left, right);
     }
+    return array;
 }
 
-sort([1, 2, 3, 4, 5, 6, 7]);
-console.log(merge([0, 17], [2]))
+console.log(sort([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]));
+
+
 
 function merge(array1 , array2) {
     let arr = [], indArr1 = 0, indArr2 = 0;
