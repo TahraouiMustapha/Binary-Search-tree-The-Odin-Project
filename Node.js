@@ -6,7 +6,5 @@ class Node {
     }
 }
 
-const node = new Node(3);
-console.log(node.value);
 
 export { Node };
