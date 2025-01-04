@@ -124,8 +124,18 @@ class Tree {
         callback(root);
       }
     }
+
+    height(node) {
+      if(node == null) return 0;
+      if(node.leftChild || node.rightChild) {
+        let leftHeight = this.height(node.leftChild);
+        let rightHeight = this.height(node.rightChild);
+        return 1 + ( leftHeight > rightHeight ? leftHeight : rightHeight);
+      } 
+      return 0;
+    }
 }   
-50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 65, 90
+
 // this function is from Odin Project site
 const prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node === null) {
@@ -142,15 +152,10 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
  
 
 const test  = new Tree([50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 65, 90]);
-
+test.insert(test.root, 92)
+test.insert(test.root, 95)
 prettyPrint(test.root);
-
-
-const callback = (node) => {
-  console.log(node.value)
-}
-
-test.postOrder(callback);
+console.log(test.height(test.root))
 
 
 
