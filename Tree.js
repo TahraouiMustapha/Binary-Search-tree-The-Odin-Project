@@ -83,6 +83,20 @@ class Tree {
         }
       }
     }
+
+    levelOrder(callback) {
+      if(typeof callback !== 'function') throw new Error("a callback is required");
+      else {
+        let queue = [];
+        queue.push(this.root);
+        while(queue.length !== 0) {
+          let node = queue.shift();
+          callback(node);
+          node.leftChild ? queue.push(node.leftChild) : null;
+          node.rightChild ? queue.push(node.rightChild) : null;
+        }
+      }
+    }
 }   
 
 // this function is from Odin Project site
@@ -104,14 +118,12 @@ const test  = new Tree([50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 65, 90]);
 
 prettyPrint(test.root);
 
-console.log('the node with 30');
-console.log(test.find(test.root, 30).value)
-console.log('the node with 10');
-console.log(test.find(test.root, 10).value)
-console.log('the node with 70');
-console.log(test.find(test.root, 70).value)
 
-prettyPrint(test.root);
+const callback = (node) => {
+  console.log(node.value)
+}
+test.levelOrder(callback);
+
 
 
 
