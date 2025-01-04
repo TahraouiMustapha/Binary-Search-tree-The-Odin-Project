@@ -71,6 +71,18 @@ class Tree {
       } 
     }
 
+    find(root, value) {
+      if(root == null) return null;
+      else {
+        if(value < root.value) {
+          return this.find(root.leftChild, value)
+        } else if( value > root.value ) {
+          return this.find(root.rightChild, value)
+        } else { // if the value == root.value
+          return root;
+        }
+      }
+    }
 }   
 
 // this function is from Odin Project site
@@ -92,15 +104,16 @@ const test  = new Tree([50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 65, 90]);
 
 prettyPrint(test.root);
 
-console.log('deleting node has two child');
-test.deleteItem(test.root, 70);
-prettyPrint(test.root)
-console.log('deleting node has one child');
-test.deleteItem(test.root, 65);
-prettyPrint(test.root)
-console.log('deleting node has no child');
-test.deleteItem(test.root, 10);
-prettyPrint(test.root)
+console.log('the node with 30');
+console.log(test.find(test.root, 30).value)
+console.log('the node with 10');
+console.log(test.find(test.root, 10).value)
+console.log('the node with 70');
+console.log(test.find(test.root, 70).value)
+
+prettyPrint(test.root);
+
+
 
 
 
