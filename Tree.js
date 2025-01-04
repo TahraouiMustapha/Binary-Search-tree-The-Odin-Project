@@ -97,8 +97,35 @@ class Tree {
         }
       }
     }
-}   
 
+    preOrder(callback, root = this.root) {// root left right
+      if(typeof callback !== 'function') throw new Error("a callback is required");
+      if(root !== null) {
+        callback(root);
+        this.preOrder(callback, root.leftChild);
+        this.preOrder(callback, root.rightChild);
+      }
+    }
+
+    inOrder(callback, root = this.root) { // left root right
+      if(typeof callback !== 'function') throw new Error("a callback is required");
+      if(root !== null) {
+        this.inOrder(callback, root.leftChild);
+        callback(root);
+        this.inOrder(callback, root.rightChild);
+      }
+    }
+
+    postOrder(callback, root = this.root) { // left right root
+      if(typeof callback !== 'function') throw new Error("a callback is required");
+      if(root !== null) {
+        this.postOrder(callback, root.leftChild);
+        this.postOrder(callback, root.rightChild);
+        callback(root);
+      }
+    }
+}   
+50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 65, 90
 // this function is from Odin Project site
 const prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node === null) {
@@ -122,9 +149,8 @@ prettyPrint(test.root);
 const callback = (node) => {
   console.log(node.value)
 }
-test.levelOrder(callback);
 
-
+test.postOrder(callback);
 
 
 
