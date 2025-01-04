@@ -134,6 +134,12 @@ class Tree {
       } 
       return 0;
     }
+
+    depth( node, root = this.root) {
+      if(node.value < root.value) return 1 + this.depth( node, root.leftChild);
+      else if( node.value > root.value) return 1 + this.depth( node, root.rightChild);
+      else return 0;// the root is the node given
+    } 
 }   
 
 // this function is from Odin Project site
@@ -155,7 +161,8 @@ const test  = new Tree([50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 65, 90]);
 test.insert(test.root, 92)
 test.insert(test.root, 95)
 prettyPrint(test.root);
-console.log(test.height(test.root))
+const testNode = test.find(test.root, 95);
+console.log(test.depth( testNode))
 
 
 
