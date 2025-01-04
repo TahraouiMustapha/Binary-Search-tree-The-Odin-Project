@@ -19,6 +19,11 @@ class Tree {
         return null;
     }
 
+    nextBiggest(root) {
+      if(root.leftChild == null) return root;
+      return this.nextBiggest(root.leftChild);
+    }
+
     insert(root, value) {
       if(root == null) {
         this.root = this.buildTree([value]); // for create the root if doesn't exist
@@ -43,6 +48,28 @@ class Tree {
 
     }
 
+    deleteItem(root, value) {
+      if(root == null) return null;
+      else {
+        if(value < root.value) {
+          root.leftChild = this.deleteItem(root.leftChild, value);
+          return root;
+        } else if(value > root.value) {
+          root.rightChild = this.deleteItem(root.rightChild, value);
+          return root;
+        } else { // if the value == root.value
+          if(root.leftChild == null && root.rightChild == null ) return null; // removing node has no child
+          else if(root.leftChild != null && root.rightChild != null) { // removing node has two child
+            const nextBigNode = this.nextBiggest(root.rightChild);
+            root.rightChild = this.deleteItem(root.rightChild, nextBigNode.value);
+            root.value = nextBigNode.value;
+            return root;
+          } else {
+            return root.leftChild ? root.leftChild : root.rightChild; //removing node has one child 
+          }
+        }
+      } 
+    }
 
 }   
 
@@ -60,12 +87,21 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
 }
  
-const test  = new Tree();
-test.insert(test.root, 8)
-test.insert(test.root, 4);
-test.insert(test.root, 12);
-test.insert(test.root, 2);
-test.insert(test.root, 1);
-test.insert(test.root, 3);
-test.insert(test.root, 10);
+
+const test  = new Tree([50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 65, 90]);
+
 prettyPrint(test.root);
+
+console.log('deleting node has two child');
+test.deleteItem(test.root, 70);
+prettyPrint(test.root)
+console.log('deleting node has one child');
+test.deleteItem(test.root, 65);
+prettyPrint(test.root)
+console.log('deleting node has no child');
+test.deleteItem(test.root, 10);
+prettyPrint(test.root)
+
+
+
+
