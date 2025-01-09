@@ -24,7 +24,7 @@ class Tree {
       return this.nextBiggest(root.leftChild);
     }
 
-    insert(root, value) {
+    insert(value, root = this.root) {
       if(root == null) {
         this.root = this.buildTree([value]); // for create the root if doesn't exist
         return;
@@ -34,13 +34,13 @@ class Tree {
           if(root.leftChild == null) {
             root.leftChild = node;
           } else {
-            root.leftChild = this.insert(root.leftChild, value);
+            root.leftChild = this.insert(value, root.leftChild);
           }
         } else if(value > root.value) {
           if(root.rightChild == null) {
             root.rightChild = node;
           } else {
-            root.rightChild = this.insert(root.rightChild, value);
+            root.rightChild = this.insert(value, root.rightChild);
           }
         }
         return root;
@@ -176,17 +176,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 }
  
 
-const test  = new Tree([50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 65, 90]);
-test.insert(test.root, 92)
-test.insert(test.root, 32)
-prettyPrint(test.root);
-console.log(test.isBalanced());
-test.rebalance();
-prettyPrint(test.root);
-console.log(test.isBalanced());
-
-
-
-
-
-
+export { Tree,  prettyPrint };
