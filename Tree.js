@@ -153,6 +153,12 @@ class Tree {
       if(leftResult && rightResult) return Math.abs(this.height(root.leftChild) - this.height(root.rightChild)) <= 1;
       return false;
     }
+
+    rebalance() {
+      let newArray = [] ;
+      this.inOrder((node) => newArray.push(node.value));
+      this.root = this.buildTree(newArray);
+    }
 }   
 
 // this function is from Odin Project site
@@ -175,6 +181,11 @@ test.insert(test.root, 92)
 test.insert(test.root, 32)
 prettyPrint(test.root);
 console.log(test.isBalanced());
+test.rebalance();
+prettyPrint(test.root);
+console.log(test.isBalanced());
+
+
 
 
 
