@@ -126,7 +126,7 @@ class Tree {
     }
 
     height(node) {
-      if(node == null) return 0;
+      if(node == null) return -1;
       if(node.leftChild || node.rightChild) {
         let leftHeight = this.height(node.leftChild);
         let rightHeight = this.height(node.rightChild);
@@ -140,6 +140,19 @@ class Tree {
       else if( node.value > root.value) return 1 + this.depth( node, root.rightChild);
       else return 0;// the root is the node given
     } 
+
+    isBalanced(root = this.root) {
+      if(root == null) return true;  
+      if(root.leftChild == null && root.rightChild == null) {
+        return true;
+      }
+
+      let leftResult = this.isBalanced(root.leftChild);
+      let rightResult = this.isBalanced(root.rightChild);
+
+      if(leftResult && rightResult) return Math.abs(this.height(root.leftChild) - this.height(root.rightChild)) <= 1;
+      return false;
+    }
 }   
 
 // this function is from Odin Project site
@@ -159,11 +172,9 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const test  = new Tree([50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 65, 90]);
 test.insert(test.root, 92)
-test.insert(test.root, 95)
+test.insert(test.root, 32)
 prettyPrint(test.root);
-const testNode = test.find(test.root, 95);
-console.log(test.depth( testNode))
-
+console.log(test.isBalanced());
 
 
 
